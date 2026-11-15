@@ -1,3 +1,4 @@
+using StudentCourseManagment.Middleware;
 namespace StudentCourseManagment
 {
     public class Program
@@ -10,7 +11,7 @@ namespace StudentCourseManagment
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
-
+            
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -18,13 +19,14 @@ namespace StudentCourseManagment
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseCorrelationId();
             app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.MapStaticAssets();
+            app.UseRequestTiming();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
