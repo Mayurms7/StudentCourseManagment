@@ -3,16 +3,25 @@
     public class CorrelationIdMiddleware
     {
         private readonly RequestDelegate _next;
-        public Guid X_Correlation_d;
-        public CorrelationIdMiddleware(RequestDelegate next)
+        public const string CorrelationIdHeader = "X-Correlation-Id";
+        private readonly ILogger<CorrelationIdMiddleware> _logger;
+
+        public CorrelationIdMiddleware(RequestDelegate next, ILogger<CorrelationIdMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
-            X_Correlation_d = Guid.NewGuid();
-            context.Response.Headers["X-Correlation-Id"] = X_Correlation_d.ToString();
+            var correlationID = Guid.NewGuid().ToString();
+            
+            context.Items[CorrelationIdHeader] = correlationID;
+
+            context.Response.Headers[CorrelationIdHeader] = correlationID;
+            _logger.LogInformation("Correlation {CorrelationId} assigned to {Path}",
+                CorrelationIdHeader, context.Request.Path);
+
             await _next(context);
         }
     }

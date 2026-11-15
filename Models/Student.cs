@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-
+﻿
 namespace StudentCourseManagment.Models
 {
     public class Student

@@ -20,13 +20,14 @@ namespace StudentCourseManagment
                 app.UseHsts();
             }
             app.UseCorrelationId();
+            app.UseRequestTiming();
             app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.MapStaticAssets();
-            app.UseRequestTiming();
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")

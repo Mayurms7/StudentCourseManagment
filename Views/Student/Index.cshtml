@@ -30,15 +30,16 @@ else
                     <td>@student.FullName</td>
                     <td>@student.Email</td>
                     <td>@student.EnrollmentDate.ToString("dd-MMM-yyyy")</td>
+                    <td>
                     @if (student.IsActive)
                     {
-                        <td><span class="badge bg-success">Active</span></td>
+                        <span class="badge bg-success">Active</span>
                     }
                     else
                     {
-                        <td><span class="badge bg-secondary">Inactive</span></td>
+                        <span class="badge bg-secondary">Inactive</span>
                     }
-                    
+                    </td>
                 </tr>
             }
         </tbody>
