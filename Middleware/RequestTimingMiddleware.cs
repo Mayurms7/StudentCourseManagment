@@ -18,8 +18,8 @@ namespace StudentCourseManagment.Middleware
             var stopwatch = Stopwatch.StartNew();
             await _next(context);
             stopwatch.Stop();
-
-            _logger.LogInformation("{Method} {Path} {Correlation ID}-> {statuscode} in {Elapsed} ms", context.Request.Method, context.Request.Path,context.Response.Headers["X-Correlation-Id"], context.Response.StatusCode, stopwatch.ElapsedMilliseconds);
+            var correlationId = context.Items[CorrelationIdMiddleware.CorrelationIdHeader];
+            _logger.LogInformation("{Method} {Path} [{CorrelationId}] -> {statuscode} in {Elapsed} ms", context.Request.Method, context.Request.Path,correlationId, context.Response.StatusCode, stopwatch.ElapsedMilliseconds);
         }
     }
 

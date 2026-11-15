@@ -20,7 +20,7 @@
 
             context.Response.Headers[CorrelationIdHeader] = correlationID;
             _logger.LogInformation("Correlation {CorrelationId} assigned to {Path}",
-                CorrelationIdHeader, context.Request.Path);
+                correlationID, context.Request.Path);
 
             await _next(context);
         }
